@@ -26,9 +26,23 @@ export const todoApi = {
   },
 
   toggleTodo: async (id: string) => {
-    const res = await fetch(`${API_URL}/todo/${id}`, {
-      method: "PATCH",
-    });
-    return res.json();
+    try {
+      const res = await fetch(`${API_URL}/todo/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Error ${res.status}: ${res.statusText}`);
+      }
+
+      return res.json();
+    } catch (error) {
+      console.error("Toggle todo error:", error);
+      throw error;
+    }
   },
 };

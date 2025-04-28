@@ -1,4 +1,10 @@
-import { IsBoolean, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTodoDto {
@@ -9,6 +15,7 @@ export class CreateTodoDto {
   })
   @IsString()
   @MinLength(1)
+  @MaxLength(30)
   title: string;
 
   @ApiProperty({
@@ -18,6 +25,7 @@ export class CreateTodoDto {
   })
   @IsString()
   @IsOptional()
+  @MaxLength(30)
   description?: string;
 
   @ApiProperty({

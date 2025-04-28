@@ -11,6 +11,9 @@ export const CreateTodoForm = ({ onNewTodo }: CreateTodoFormProps) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
+  const MAX_TITLE_LENGTH = 30;
+  const MAX_DESCRIPTION_LENGTH = 30;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title) return;
@@ -24,9 +27,9 @@ export const CreateTodoForm = ({ onNewTodo }: CreateTodoFormProps) => {
       onNewTodo?.(createdTodo);
       setTitle("");
       setDescription("");
-    } catch (error) {
+    } catch (error:any) {
       console.error("Error creating todo:", error);
-      alert("Error creating todo. Please try again.");
+      alert(`Error al crear la tarea. Por favor, inténtalo de nuevo.`);
     }
   };
 
@@ -43,6 +46,8 @@ export const CreateTodoForm = ({ onNewTodo }: CreateTodoFormProps) => {
           onChange={(e) => setTitle(e.target.value)}
           className="w-full p-2 border rounded-lg"
           placeholder="Añadir nueva tarea"
+          maxLength={MAX_TITLE_LENGTH}
+          minLength={1}
           required
         />
       </div>
@@ -56,6 +61,8 @@ export const CreateTodoForm = ({ onNewTodo }: CreateTodoFormProps) => {
           onChange={(e) => setDescription(e.target.value)}
           className="w-full p-2 border rounded-lg"
           placeholder="Añadir descripción"
+          maxLength={MAX_DESCRIPTION_LENGTH}
+          minLength={1}
           rows={3}
         />
       </div>
